@@ -169,7 +169,7 @@ router.post(
 
       // Verify trainer is assigned to this batch
       const batchTrainer = await prisma.batchTrainer.findFirst({
-        where: { batchId: id, trainerId: req.dbUser!.id },
+        where: { batchId: id as string, trainerId: req.dbUser!.id },
       });
 
       if (!batchTrainer) {
@@ -186,7 +186,7 @@ router.post(
 
       const invite = await prisma.batchInvite.create({
         data: {
-          batchId: id,
+          batchId: id as string,
           inviteCode,
           createdBy: req.dbUser!.id,
           expiresAt,
@@ -312,8 +312,8 @@ router.get(
     try {
       const { id } = req.params;
 
-      const batch = await prisma.batch.findUnique({
-        where: { id },
+      const batch: any = await prisma.batch.findUnique({
+        where: { id: id as string },
         include: {
           institution: { select: { id: true, name: true } },
           students: {

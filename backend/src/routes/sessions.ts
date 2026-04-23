@@ -229,8 +229,8 @@ router.get(
     try {
       const { id } = req.params;
 
-      const session = await prisma.session.findUnique({
-        where: { id },
+      const session: any = await prisma.session.findUnique({
+        where: { id: id as string },
         include: {
           batch: {
             select: { id: true, name: true },

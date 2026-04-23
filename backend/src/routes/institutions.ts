@@ -89,8 +89,8 @@ router.get(
         return;
       }
 
-      const institution = await prisma.institution.findUnique({
-        where: { id },
+      const institution: any = await prisma.institution.findUnique({
+        where: { id: id as string },
         include: {
           batches: {
             include: {
